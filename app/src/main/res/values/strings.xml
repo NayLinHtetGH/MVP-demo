@@ -1,3 +1,4 @@
 <resources>
     <string name="str_no_internet_connection">အင်တာနက် ကွန်နက်ရှင် ပြတ်တောက်သွားပါသည်</string>
+    <string name="no_data">No data</string>
 </resources>

@@ -39,6 +39,7 @@ class MainActivity : AppCompatActivity(), TestingContract.TestingView {
         callApi()
     }
 
+    @Suppress("DEPRECATION")
     private fun setUpRecyclerView() {
 
         linearLayoutManager = LinearLayoutManager(this)
@@ -120,7 +121,7 @@ class MainActivity : AppCompatActivity(), TestingContract.TestingView {
                 txtError.visibility = View.GONE
                 adapter.addAll(dataList)
             } else {
-                txtError.text = "No data"
+                txtError.text = getString(R.string.no_data)
                 txtError.visibility = View.VISIBLE
             }
             //nextPageUrl = response.meta!!.has_next_page!!
@@ -141,4 +142,5 @@ class MainActivity : AppCompatActivity(), TestingContract.TestingView {
     override fun setPresenter(presenter: TestingContract.Presenter) {
        // TODO("Not yet implemented")
     }
+    //test
 }
