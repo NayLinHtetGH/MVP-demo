@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.naylinhtet.mvpwithretrofit.R
 import com.naylinhtet.mvpwithretrofit.data.model.DataModel
@@ -118,35 +119,12 @@ class RecyclerViewAdapter(val context: Context) :
         val bodyTest: TextView = view.findViewById(R.id.bodyTest)
         val imageView: ImageView = view.findViewById(R.id.imageView)
 
-        /*init {
+        init {
             view.setOnClickListener{
-                // 1 = supplier pickup order and 2 = logistic order
-                if (1 == dataList[adapterPosition].pickup_order_type){
-                    val intent = Intent(context, SupplierOrderDetailActivity::class.java)
-                    intent.putExtra("name", dataList[adapterPosition].name)
-                    intent.putExtra("id", dataList[adapterPosition].id.toString())
-                    intent.putExtra("code", dataList[adapterPosition].code)
-                    //intent.putExtra("created_at", dataList[adapterPosition].created_at)
-                    //intent.putExtra("updated_at", dataList[adapterPosition].updated_at)
-                    intent.putExtra("phone", dataList[adapterPosition].phonenumber)
-                    intent.putExtra("pickup_order_type", dataList[adapterPosition].pickup_order_type.toString())
-                    context.startActivity(intent)
-                }else{
-                    val intent = Intent(context, LogisticOrderActivity::class.java)
-                    intent.putExtra("name", dataList[adapterPosition].name)
-                    intent.putExtra("id", dataList[adapterPosition].id.toString())
-                    intent.putExtra("phone", dataList[adapterPosition].phonenumber)
-                    intent.putExtra("pickup_order_type", dataList[adapterPosition].pickup_order_type.toString())
-                    context.startActivity(intent)
-                }
-
+                Toast.makeText(context, "Clicked ${dataList[adapterPosition].author}", Toast.LENGTH_SHORT).show()
             }
 
-            phoneImage.setOnClickListener {
-                val intent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:${dataList[adapterPosition].phonenumber}"))
-                context.startActivity(intent)
-            }
-        }*/
+        }
     }
 
     internal inner class LoadingViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

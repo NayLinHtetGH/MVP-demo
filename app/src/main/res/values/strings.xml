@@ -1,4 +1,3 @@
 <resources>
-    <string name="app_name">MVP with Retrofit</string>
     <string name="str_no_internet_connection">အင်တာနက် ကွန်နက်ရှင် ပြတ်တောက်သွားပါသည်</string>
 </resources>

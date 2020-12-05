@@ -1,5 +1,6 @@
 package com.naylinhtet.mvpwithretrofit.presenter
 
+import android.annotation.SuppressLint
 import android.content.Context
 import com.naylinhtet.mvpwithretrofit.contract.TestingContract
 import com.naylinhtet.mvpwithretrofit.manager.DataManager
@@ -12,6 +13,7 @@ class TestingPresenter(val context: Context,
 ) : TestingContract.Presenter  {
 
     private val dataManager = DataManager(context)
+    @SuppressLint("CheckResult")
     override fun dataRequest() {
         dataManager.dataCall()
             .subscribeOn(Schedulers.io())
@@ -25,7 +27,7 @@ class TestingPresenter(val context: Context,
                         exception.code() == 500 -> dataView.setError("Server Error")
                         exception.code() == 404 -> dataView.setError("Not Found")
                         //exception.code() == 403 -> dataView.logoutUser()
-                        else -> dataView.setError("Network Disconnected")
+                        else -> dataView.setError(it.localizedMessage)
                     }
                 } else {
                     dataView.setError(it.localizedMessage)

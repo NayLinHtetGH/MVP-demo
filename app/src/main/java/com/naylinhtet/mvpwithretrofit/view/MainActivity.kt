@@ -20,7 +20,7 @@ class MainActivity : AppCompatActivity(), TestingContract.TestingView {
     private lateinit var presenter: TestingContract.Presenter
     private lateinit var adapter: RecyclerViewAdapter
     private lateinit var linearLayoutManager: LinearLayoutManager
-    private var orderList: MutableList<DataModel> = ArrayList()
+    private var dataList: MutableList<DataModel> = ArrayList()
     private var startPage = 1
     private var lastPage = false
     private var loading = false
@@ -42,6 +42,7 @@ class MainActivity : AppCompatActivity(), TestingContract.TestingView {
     private fun setUpRecyclerView() {
 
         linearLayoutManager = LinearLayoutManager(this)
+        adapter = RecyclerViewAdapter(this)
         rvTesting!!.layoutManager = linearLayoutManager
         rvTesting!!.adapter = adapter
         rvTesting!!.setHasFixedSize(true)
@@ -92,14 +93,52 @@ class MainActivity : AppCompatActivity(), TestingContract.TestingView {
     }
 
     override fun setError(message: String?) {
-        TODO("Not yet implemented")
+        progressBar!!.visibility = View.GONE
+        ShowDialog.showEmptyDialog(this, message.toString())
     }
 
     override fun testingResponse(response: TestingResponse?) {
-        TODO("Not yet implemented")
+        progressBar!!.visibility = View.GONE
+        swipe_refresh!!.isRefreshing = false
+        if (NetworkUtil.isConnected(this)) {
+            if (currentPage == 1) {
+                adapter.clear()
+                adapter.notifyDataSetChanged()
+            }
+
+            if (adapter.isLoading()) {
+                adapter.removeLoading()
+            }
+            if (loading) {
+                loading = false
+            }
+
+            dataList = response!!.articles as MutableList<DataModel>
+            //totalQty.text = "- " + response.meta!!.total
+
+            if (dataList.size > 0) {
+                txtError.visibility = View.GONE
+                adapter.addAll(dataList)
+            } else {
+                txtError.text = "No data"
+                txtError.visibility = View.VISIBLE
+            }
+            //nextPageUrl = response.meta!!.has_next_page!!
+
+            if (nextPageUrl) {
+                adapter.addLoading()
+            } else {
+                lastPage = true
+            }
+        } else {
+            ShowDialog.showEmptyDialog(
+                this,
+                resources.getString(R.string.str_no_internet_connection)
+            )
+        }
     }
 
     override fun setPresenter(presenter: TestingContract.Presenter) {
-        TODO("Not yet implemented")
+       // TODO("Not yet implemented")
     }
 }
